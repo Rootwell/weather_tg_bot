@@ -11,13 +11,11 @@ $dataFromTg = json_decode(file_get_contents('php://input'), TRUE);
 
 
 $chatId = $dataFromTg['message']['chat']['id'];
-if ($dataFromTg['message']['from']['id'] == 361515342) {
-    sendMessage($chatId, 'Пашол нахерен, Эмиль, погода тебе говно на голову будет ахаххахаъ');
-}
+
 if (isset($dataFromTg['message']['text'])) {
     $messageText = $dataFromTg['message']['text'];
 }
-file_put_contents("log.txt", print_r($dataFromTg, true), FILE_APPEND);
+
 if (isset($messageText) && $messageText === '/start') {
     sendMessage($chatId, "Привет!
 Я — робот предсказатель погоды.
@@ -47,7 +45,6 @@ if (isset($messageText)) {
     sendMessage($chatId, 'Не понимаю тебя :(');
 }
 
-//ТОЛЬКО ГОРОДА РОССИИ
 $city = $words[0];
 //СЕЙЧАС
 //СЕГОДНЯ
@@ -158,6 +155,5 @@ function buildForecastMessageFor4Days(array $rawForecastData, string $city): str
     return $responseForecastMessage;
 }
 
-file_put_contents("logCoords.txt", print_r($dataWeather, true) . "\n");
 
 
